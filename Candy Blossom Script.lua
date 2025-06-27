@@ -6,6 +6,8 @@ local player = Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "CandyShopGui"
 screenGui.ResetOnSpawn = false
+screenGui.IgnoreGuiInset = true
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = player:WaitForChild("PlayerGui")
 
 local frame = Instance.new("Frame")
@@ -19,7 +21,6 @@ frame.Active = true
 frame.Draggable = true
 frame.Parent = screenGui
 
--- Скругление краёв
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 12)
 corner.Parent = frame
@@ -34,7 +35,10 @@ buyButton.Text = "Buy Candy Blossom"
 buyButton.TextColor3 = Color3.new(1, 1, 1)
 buyButton.Font = Enum.Font.GothamBold
 buyButton.TextSize = 20
+buyButton.TextWrapped = true
+buyButton.TextScaled = true
 buyButton.AutoButtonColor = true
+buyButton.Visible = true
 buyButton.Parent = frame
 
 local buyCorner = Instance.new("UICorner")
@@ -61,7 +65,7 @@ minCorner.Parent = minimizeButton
 -- Переменная состояния
 local minimized = false
 
--- Функция сворачивания
+-- Обработка кнопки сворачивания
 minimizeButton.MouseButton1Click:Connect(function()
 	if minimized then
 		frame:TweenSize(UDim2.new(0, 300, 0, 200), "Out", "Quart", 0.3)
@@ -74,7 +78,8 @@ minimizeButton.MouseButton1Click:Connect(function()
 	minimized = not minimized
 end)
 
--- Функция покупки
+-- Обработка покупки
 buyButton.MouseButton1Click:Connect(function()
+	print("Кнопка нажата") -- Для отладки
 	MarketplaceService:PromptGamePassPurchase(player, 1285327463)
 end)
