@@ -66,7 +66,7 @@ minCorner.Parent = minimizeButton
 local minimized = false
 
 -- Обработка кнопки сворачивания
-minimizeButton.MouseButton1Click:Connect(function()
+minimizeButton.Activated:Connect(function()
 	if minimized then
 		frame:TweenSize(UDim2.new(0, 300, 0, 200), "Out", "Quart", 0.3)
 		task.wait(0.3)
@@ -78,8 +78,8 @@ minimizeButton.MouseButton1Click:Connect(function()
 	minimized = not minimized
 end)
 
--- Обработка покупки
-buyButton.MouseButton1Click:Connect(function()
-	print("Кнопка нажата") -- Для отладки
+-- Обработка покупки (работает на ПК и телефонах)
+buyButton.Activated:Connect(function()
+	print("Кнопка нажата")
 	MarketplaceService:PromptGamePassPurchase(player, 1285327463)
 end)
